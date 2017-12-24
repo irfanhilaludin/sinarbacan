@@ -50,66 +50,74 @@ $tanggal_input_sampai = $_POST["tanggal_input_sampai"];
 </thead>
 
 <tbody>
-<!-----------------------------------Content------------------------------------>
+
 <?php
    $oras = strtotime("today");
 $ora = date("Y/m/d",$oras);	
 $newdate2 = strtotime ( 'next month' , $ora  ) ; 
+$newdate = date("Y/m/d H:m:s",$newdate2);	
 
-//$newdate = date("Y/m/d H:m:s",$newdate2);	
- if(($tanggal_input_awal=='') AND ($tanggal_input_sampai=='')){
-$penawaran_query = mysql_query("select * , DATE_FORMAT(tanggal_penawaran,'%d-%m-%Y') as TANGGAL from tb_penawaran")or die(mysql_error());
-	}else{
 
-$penawaran_query = mysql_query("select * , DATE_FORMAT(tanggal_penawaran,'%d-%m-%Y') as TANGGAL from tb_penawaran where DATE_FORMAT(tanggal_penawaran,'%d/%m/%Y') BETWEEN '$tanggal_input_awal' AND '$tanggal_input_sampai' ")or die(mysql_error());
-	}
-    while($row_pn = mysql_fetch_array($penawaran_query)){
-    $tes = strtotime( $row_pn['tempo_penawaran']);
-                    
- $pelanggan_query = mysql_query("select * from tb_kontak_all where id_kontak = '$row_pn[id_kontak]' ")or die(mysql_error());
- while($row = mysql_fetch_array($pelanggan_query)){
-                    
-  $user_query = mysql_query("select * from tb_user where id_user = '$row_pn[id_user]'")or die(mysql_error());
-  while($row_user = mysql_fetch_array($user_query)){
-                    
-   
-   
-   
-$user_row = mysql_fetch_array($user_query);
-				  
-				  
-				  
-				  
-				    ?>
-                  
-                  
-                  
-                  
+// pilih admin area 
+if ($admin_area === 'all') {
+  $q = mysql_query("select * from tb_penawaran a LEFT JOIN tb_kontak_all b ON b.id_kontak = a.id_kontak LEFT JOIN (SELECT id_user, nama_user, kota from tb_user) c on c.id_user = a.id_user ") or die (mysql_error());
+
+} else {
+  switch ($admin_area) {
+        case 'surabaya':
+            $area = " WHERE b.kota_kontak IN ('surabaya', 'tuban', 'sidoarjo', 'gresik', 'lamongan', 'mojokerto', 'jombang', 'nganjuk', 'madiun', 'ngawi', 'ponorogo', 'pacitan', 'trenggalek', 'tulungagung', 'blitar')";
+            break;
+        case 'probolinggo':
+            $area = " WHERE b.kota_kontak IN ('probolinggo', 'pasuruan', 'batu', 'malang', 'lumajang', 'jember', 'bondowoso', 'situbondo', 'banyuwangi')";
+            break;
+        case 'semarang':
+            $area = " WHERE b.kota_kontak IN ('cilacap', 'banyumas', 'brebes', 'tegal', 'purbalingga', 'batang', 'banjarnegara', 'kebumen', 'wonosobo', 'purworejo', 'temanggung', 'magelang', 'kendal', 'yogyakarta', 'ungaran', 'salatiga', 'boyolali', 'klaten', 'surakarta', 'sukorejo', 'karanganyar', 'wonogiri', 'sragen', 'grobongan', 'demak', 'semarang')";
+            break;
+        case 'juwana' or 'juwono':
+            $area = " WHERE b.kota_kontak IN ('juwana', 'jepara', 'kudus', 'pati', 'rembang', 'blora')";
+            break;
+        case 'cirebon':
+            $area = " WHERE b.kota_kontak IN ('cirebon')";
+            break;
+        default:
+            $area = "";
+            break;
+    }
+
+  $q = mysql_query("select * from tb_penawaran a LEFT JOIN tb_kontak_all b ON b.id_kontak = a.id_kontak LEFT JOIN (SELECT id_user, nama_user, kota from tb_user) c on c.id_user = a.id_user" . $area) or die (mysql_error());
+}
+  
+while ($row = mysql_fetch_array($q)) {			  
+?>
                   
 <tr>
 <td>
-     <input type="checkbox" class="checkbox" name="id_pn[]" value="<?php echo $row_pn['id_penawaran']; ?>">
+     <input type="checkbox" class="checkbox" name="id_pn[]" value="<?php echo $row['id_penawaran']; ?>">
      <input type="hidden" value="<?php echo $row['id_kontak']; ?>" name="id_kon"/>
     </td>
 
-            <td><?php echo $row_pn['TANGGAL']; ?></td>
+            <td><?php 
+              $dt = new DateTime($row[ 'tanggal_penawaran'], new DateTimeZone('Asia/Jakarta'));
+              echo $dt->format('d M Y');
+            ?></td>
+
 <td> <a href="#" class="" data-toggle="modal" data-target="#detail_<?php echo $row['id_kontak']; ?>">
 
 <?php echo $row['nama_kontak']; ?></a><br /><?php echo $row['alamat_kontak']; ?>-<?php echo $row['kota_kontak']; ?></td>
             
 
              
-            <td><?php echo $row_pn['harga_penawaran']; ?></td>
-               <td><?php echo $row_pn['pembayaran']; ?></td>
-                <td><?php echo $row_user['nama_user']; ?></td>	
-                  <td><?php echo $row_pn['status_penawaran']; ?></td>	
+            <td><?php echo $row['harga_penawaran']; ?></td>
+               <td><?php echo $row['pembayaran']; ?></td>
+                <td><?php echo $row['nama_user']; ?></td>	
+                  <td><?php echo $row['status_penawaran']; ?></td>	
             <td>
-<a href="?page=edit_penawaran&id_penawaran=<?php echo $row_pn['id_penawaran']; ?>" class="btn btn-warning">Edit</a>
-           <a href="print.php?id_penawaran=<?php echo $row_pn['id_penawaran']; ?>" class="btn btn-success" target="_blank">Kirim</a>
+<a href="?page=edit_penawaran&id_penawaran=<?php echo $row['id_penawaran']; ?>" class="btn btn-warning">Edit</a>
+           <a href="print.php?id_penawaran=<?php echo $row['id_penawaran']; ?>" class="btn btn-success" target="_blank">Kirim</a>
          </td>
          <td>
-            <a href="gagal_kirim.php?id_penawaran=<?php echo $row_pn['id_penawaran']; ?>&id_kontak=<?php echo $row['id_kontak']; ?>&id_user=<?php echo $row_user['id_user']; ?>" class="btn btn-danger">Gagal</a>
-           <a href="ganti_status.php?id_penawaran=<?php echo $row_pn['id_penawaran']; ?>&id_kontak=<?php echo $row['id_kontak']; ?>&id_user=<?php echo $row_user['id_user']; ?>" class="btn btn-primary">Terkirim</a>
+            <a href="gagal_kirim.php?id_penawaran=<?php echo $row['id_penawaran']; ?>&id_kontak=<?php echo $row['id_kontak']; ?>&id_user=<?php echo $row['id_user']; ?>" class="btn btn-danger">Gagal</a>
+           <a href="ganti_status.php?id_penawaran=<?php echo $row['id_penawaran']; ?>&id_kontak=<?php echo $row['id_kontak']; ?>&id_user=<?php echo $row['id_user']; ?>" class="btn btn-primary">Terkirim</a>
 
             </td>	
           
@@ -117,11 +125,10 @@ $user_row = mysql_fetch_array($user_query);
  
 <?php 
 }
-}
-}?>  
+?>  
 
 
-                
+            
 
 
 </tbody>

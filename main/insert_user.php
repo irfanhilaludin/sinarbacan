@@ -16,7 +16,7 @@ echo"<script>alert('Username sudah Ada, gunakan username lain')</script>";
 		
 		
 		
-$query=mysql_query("insert into tb_user (kode_user, username_user, password_user , nama_user, level_user, hp_user) values ('$_POST[kode]' , '$_POST[username]' , '$_POST[pass]' , '$_POST[nama]','$_POST[level]', '$_POST[hp]')") or die (mysql_error());
+$query=mysql_query("insert into tb_user (kode_user, username_user, password_user , nama_user, level_user, hp_user, kota) values ('$_POST[kode]' , '$_POST[username]' , '$_POST[pass]' , '$_POST[nama]','$_POST[level]', '$_POST[hp]', '$_POST[kota]')") or die (mysql_error());
 if($query)
 header("location:index.php?page=data_user");
 

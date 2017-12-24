@@ -34,7 +34,33 @@
     <tbody>
     <!-----------------------------------Content------------------------------------>
     <?php
-   $kontak_query = mysql_query("select * from tb_kontak_all where report_kontak = 'P' OR report_kontak = 'S' OR report_kontak = 'O' OR report_kontak = 'E' OR status_kontak ='tidak terhubung'")or die(mysql_error());
+   // iki tambahan'e bro!
+    $id_admin = $_SESSION['admin'];
+    switch ($id_admin) {
+        case '2':
+            $query = "SELECT * FROM tb_kontak_all WHERE status_kontak ='telepon lagi' AND kota_kontak IN ('surabaya', 'sidoarjo', 'gersik', 'lamongan', 'mojokerto', 'jombang', 'nganjuk', 'madiun', 'ngawi', 'ponorogo', 'pacitan', 'trenggalek', 'tulungagung', 'blitar')";
+            break;
+        case '3':
+            $query = "SELECT * FROM tb_kontak_all WHERE status_kontak ='telepon lagi' AND kota_kontak IN ('probolinggo', 'pasuruan', 'batu', 'malang', 'lumajang', 'jember', 'bondowoso', 'situbondo', 'banyuwangi')";
+            break;
+        case '4':
+            $query = "SELECT * FROM tb_kontak_all WHERE status_kontak ='telepon lagi' AND kota_kontak IN ('cilacap', 'banyumas', 'brebes', 'tegal', 'purbalingga', 'batang', 'banjarnegara', 'kebumen', 'wonosobo', 'purworejo', 'temanggung', 'magelang', 'kendal', 'yogyakarta', 'ungaran', 'salatiga', 'boyolali', 'klaten', 'surakarta', 'sukorejo', 'karanganyar', 'wonogiri', 'sragen', 'grobongan', 'demak', 'semarang')";
+            break;
+        case '5':
+            $query = "SELECT * FROM tb_kontak_all WHERE status_kontak ='telepon lagi' AND kota_kontak IN ('jepara', 'kudus', 'pati', 'rembang', 'blora')";
+            break;
+        case '6':
+            $query = "SELECT * FROM tb_kontak_all WHERE status_kontak ='telepon lagi' AND kota_kontak IN ('cirebon')";
+            break;
+        default:
+            $query = "select * from tb_kontak_all where report_kontak = 'P' OR report_kontak = 'S' OR report_kontak = 'O' OR report_kontak = 'E' OR status_kontak ='tidak terhubung'";
+            break;
+    }
+    // iki akhire
+  
+  
+  
+   $kontak_query = mysql_query($query)or die(mysql_error());
 	
     while($row = mysql_fetch_array($kontak_query)){
 	

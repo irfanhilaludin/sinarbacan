@@ -48,7 +48,21 @@
                 </div>
                 </div>
                 
-                
+                 <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Unit
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                <select name="kota" id="select">
+                      <option value="">--Pilih Unit--</option>
+                      <option value="surabaya">SURABAYA</option>
+                      <option value="probolinggo">PROBOLINGGO</option>
+                      <option value="semarang">SEMARANG</option>
+                      <option value="juwana">JUWANA</option>
+                      <option value="cirebon">CIREBON</option>
+                      
+                      </select>
+                </div>
+                </div>
                                    
                                                               
                                 

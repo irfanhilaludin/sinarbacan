@@ -2,7 +2,7 @@
 include('dbcon.php');
 dbcon();
 include('session.php');
-error_reporting(0);
+// error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +31,7 @@ error_reporting(0);
 <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
 <ul class="nav navbar-nav">
 <li class="dropdown">
-<a class="btn dropdown-toggle" data-toggle="dropdown">AKUN <b class="caret"></b></a>
+<a class="btn dropdown-toggle" data-toggle="dropdown">Hello, <?php echo $user_username; ?> <small>[Area: <?php echo $admin_area; ?>]</small> <b class="caret"></b></a>
 <ul class="dropdown-menu animated fadeInUp">
 <li><a href="logout.php">Logout</a></li>
 </ul>

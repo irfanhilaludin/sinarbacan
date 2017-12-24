@@ -1,3 +1,6 @@
+ <meta http-equiv="refresh" content="30"; URL="<?php echo basename($PHP_SELF); ?>">
+
+
 <div class="row">
 		  		<div class="col-md-12 panel-warning">
 		  			<div class="content-box-header panel-heading">
@@ -32,39 +35,93 @@
 <tbody>
 <!-----------------------------------Content------------------------------------>
 <?php
-   $oras = strtotime("today");
-$ora = date("Y/m/d",$oras);	
+
+$oras = strtotime("today");
+$ora = date("Y/m/d",$oras); 
 $newdate2 = strtotime ( 'next month' , $ora  ) ; 
 
-$newdate = date("Y/m/d H:m:s",$newdate2);	
+$newdate = date("Y/m/d H:m:s",$newdate2);
 
+// pilih admin area 
+if ($admin_area == 'all') {
+    $q = mysql_query("select * from tb_penawaran a LEFT JOIN tb_kontak_all b ON b.id_kontak = a.id_kontak LEFT JOIN (SELECT id_user, nama_user, kota from tb_user) c on c.id_user = a.id_user where a.status_penawaran = 'terkirim'") or die (mysql_error());
+
+// iki tambahan'e bro!
+    } else {
+    switch ($admin_area) {
+        case 'surabaya':
+            $area = "AND b.kota_kontak IN ('surabaya', 'tuban', 'sidoarjo', 'gresik', 'lamongan', 'mojokerto', 'jombang', 'nganjuk', 'madiun', 'ngawi', 'ponorogo', 'pacitan', 'trenggalek', 'tulungagung', 'blitar')";
+
+
+            break;
+        case 'probolinggo':
+            $area = "AND b.kota_kontak IN ('probolinggo', 'pasuruan', 'batu', 'malang', 'lumajang', 'jember', 'bondowoso', 'situbondo', 'banyuwangi')";
+
+            break;
+        case 'semarang':
+            $area = "AND b.kota_kontak IN ('cilacap', 'banyumas', 'brebes', 'tegal', 'purbalingga', 'batang', 'banjarnegara', 'kebumen', 'wonosobo', 'purworejo', 'temanggung', 'magelang', 'kendal', 'yogyakarta', 'ungaran', 'salatiga', 'boyolali', 'klaten', 'surakarta', 'sukorejo', 'karanganyar', 'wonogiri', 'sragen', 'grobongan', 'demak', 'semarang')";
+
+            break;
+        case 'juwono':
+           $area = "AND b.kota_kontak IN ('juwono','jepara', 'kudus', 'pati', 'rembang', 'blora')";
+
+            break;
+        case 'cirebon':
+           $area = "AND b.kota_kontak IN ('cirebon')";
+
+            break;
+        default:
+            $area = "";
+            break;
+    }
+    
+        $q = mysql_query("select * from tb_penawaran a LEFT JOIN tb_kontak_all b ON b.id_kontak = a.id_kontak LEFT JOIN (SELECT id_user, nama_user, kota from tb_user) c on c.id_user = a.id_user where a.status_penawaran = 'terkirim'" . $area) or die (mysql_error());
+}
+
+    
+while ($row = mysql_fetch_array($q)) {;
+
+
+    // iki akhire
+
+   	
+/*
                     $penawaran_query = mysql_query("select *, DATE_FORMAT(tanggal_penawaran ,'%d-%m-%Y') AS tgl_pn , DATE_FORMAT(tempo_penawaran ,'%d-%m-%Y') AS jatuh_tempo from tb_penawaran where status_penawaran = 'terkirim'")or die(mysql_error());
+					
+
+					
                     while($row_pn = mysql_fetch_array($penawaran_query)){
                      $tes = strtotime( $row_pn['tempo_penawaran']);
                     
-                    $pelanggan_query = mysql_query("select * from tb_kontak_all where id_kontak = '$row_pn[id_kontak]' ")or die(mysql_error());
+	
+					
+                    $pelanggan_query = mysql_query($query)or die(mysql_error());
                     while($row = mysql_fetch_array($pelanggan_query)){
                     
-                    $user_query = mysql_query("select * from tb_user where id_user = '$row_pn[id_user]'")or die(mysql_error());
+                    $user_query = mysql_query($query_user)or die(mysql_error());
                     while($row_user = mysql_fetch_array($user_query)){
   
-                 
-                    ?>
+                 */
+                   
+
+ ?>
                   
 <tr>
 
-            <td><?php echo $row_pn['tgl_pn']; ?></td>
-             <td><?php echo $row_pn['jatuh_tempo']; ?></td>
+<td><?php echo $row['tanggal_penawaran']; ?></td>
+<td><?php echo $row['tempo_penawaran']; ?></td>
 <td> <a href="#" class="" data-toggle="modal" data-target="#detail_<?php echo $row['id_kontak']; ?>">
 
 <?php echo $row['nama_kontak']; ?></a>
+
 </td>            
 
              
-            <td><?php echo $row_pn['harga_penawaran']; ?>/<?php echo $row_pn['pembayaran']; ?></td>
-                <td><?php echo $row_user['nama_user']; ?></td>	
+            <td><?php echo $row['harga_penawaran']; ?><?php echo $row['pembayaran']; ?></td> 
+            <td><?php echo $row['nama_user']; ?></td>
+            
             <td>
-            <a href="gagal_kirim.php?id_penawaran=<?php echo $row_pn['id_penawaran']; ?>&id_kontak=<?php echo $row['id_kontak']; ?>&id_user=<?php echo $row_user['id_user']; ?>" class="btn btn-danger btn-xs">Gagal</a>
+<a href="gagal_kirim.php?id_penawaran=<?php echo $row['id_penawaran']; ?>&id_kontak=<?php echo $row['id_kontak']; ?>&id_user=<?php echo $row['id_user']; ?>" class="btn btn-danger btn-xs">Gagal</a>
          
 
             </td>	
@@ -81,13 +138,18 @@ $newdate = date("Y/m/d H:m:s",$newdate2);
                       </div>
                       <div class="modal-body">
                         <h4>Tracking</h4>
-                        <?php
-								$detail_q = mysql_query("select * from tb_set where id_kontak = '$row[id_kontak]' ")or die(mysql_error());
+                       
+
+
+ <?php
+$detail_q = mysql_query("select * from tb_set where id_kontak = '$row[id_kontak]' ")or die(mysql_error());
 		while($row_detail = mysql_fetch_array($detail_q)){
-								$detail_user = mysql_query("select * from tb_user where id_user = '$row_detail[id_user]' ")or die(mysql_error());
+
+
+$detail_user = mysql_query("select * from tb_user where id_user = '$row_detail[id_user]' ")or die(mysql_error());
 		$user_detail = mysql_fetch_array($detail_user);
 		?>
-                        <p>pada tanggal : <?php echo $row_detail['tgl_set']; ?> di bagi ke <?php echo $user_detail['nama_user']; 
+<p>pada tanggal : <?php echo $row_detail['tgl_set']; ?> di bagi ke <?php echo $user_detail['nama_user']; 
 						
 						}?></p>
 
@@ -100,14 +162,15 @@ $newdate = date("Y/m/d H:m:s",$newdate2);
                   </div>
                 </div>
 <?php 
+//}
+//}
 }
-}
-}?>  
+?>  
 
 
                 
 
 
 </tbody>
-                        </table>
+</table>
   </div>

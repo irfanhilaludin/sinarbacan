@@ -52,6 +52,9 @@ $ca_user = mysql_query("select * from tb_user")or die(mysql_error());
     <tbody>
     <!-----------------------------------Content------------------------------------>
     <?php
+	
+		
+	
     if(($tanggal_input_awal=='') AND ($tanggal_input_sampai=='')){
 
 $kontak_query = mysql_query("select * , DATE_FORMAT(tanggal_bagi,'%d/%m/%Y') as TANGGAL from tb_kontak_all where id_user = ' $mkrt '")or die(mysql_error());
@@ -59,6 +62,7 @@ $kontak_query = mysql_query("select * , DATE_FORMAT(tanggal_bagi,'%d/%m/%Y') as 
 }else{
 $kontak_query = mysql_query("select *, DATE_FORMAT(tanggal_bagi,'%d/%m/%Y') as TANGGAL from tb_kontak_all where DATE_FORMAT(tanggal_bagi,'%d/%m/%Y') BETWEEN '$tanggal_input_awal' AND '$tanggal_input_sampai' ")or die(mysql_error());
 }
+
 while($row = mysql_fetch_array($kontak_query)){
 $user_query = mysql_query("select * from tb_user where id_user = '$row[id_user]' ")or die(mysql_error());
                 $row_user = mysql_fetch_array($user_query);
@@ -102,7 +106,7 @@ $user_query = mysql_query("select * from tb_user where id_user = '$row[id_user]'
 Pindah ke Marketing
 <select name="user" required="required" class="form-control">     
      <?php
-$cb_user = mysql_query("select * from tb_user")or die(mysql_error());
+$cb_user = mysql_query("select * from tb_user where kota = '" . $admin_area . "'")or die(mysql_error());
                 while($cr_user = mysql_fetch_array($cb_user)){
 				
 				

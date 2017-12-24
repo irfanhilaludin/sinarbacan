@@ -67,14 +67,36 @@ Sampai:<input id="tanggal_input_sampai" class="date-picker" required="required" 
                     
 			// $user_query = mysql_query("select * from tb_user where id_user = '$row_pn[id_user]'")or die(mysql_error());
 			
-			$query = mysql_query("select bc.nama_kontak, bc.alamat_kontak, bc.kota_kontak, a.harga_penawaran, a.tempo_penawaran, bc.nama_user, a.status_penawaran , MAX(a.tanggal_penawaran) AS 'tanggal_penawaran' from tb_penawaran a 
-LEFT JOIN (SELECT b.id_kontak, b.nama_kontak, b.alamat_kontak, b.kota_kontak, c.nama_user FROM tb_kontak_all b INNER JOIN tb_user c ON b.id_user = c.id_user) bc
-ON a.id_kontak = bc.id_kontak
-GROUP BY bc.id_kontak")or die(mysql_error());
-                    while($row = mysql_fetch_array($query)){
   
+    // pilih admin area 
+if ($admin_area == 'all') {
+        $q = mysql_query("select bc.nama_kontak, bc.alamat_kontak, bc.kota_kontak, a.harga_penawaran, a.tempo_penawaran, bc.nama_user, a.status_penawaran , MAX(a.tanggal_penawaran) AS 'tanggal_penawaran' from tb_penawaran a LEFT JOIN (SELECT b.id_kontak, b.nama_kontak, b.alamat_kontak, b.kota_kontak, c.nama_user FROM tb_kontak_all b INNER JOIN tb_user c ON b.id_user = c.id_user) bc ON a.id_kontak = bc.id_kontak GROUP BY bc.id_kontak") or die (mysql_error());
+} else {
+  switch ($admin_area) {
+        case 'surabaya':
+            $area = " AND bc.kota_kontak IN ('surabaya', 'sidoarjo', 'gersik', 'lamongan', 'mojokerto', 'jombang', 'nganjuk', 'madiun', 'ngawi', 'ponorogo', 'pacitan', 'trenggalek', 'tulungagung', 'blitar')";
+            break;
+        case 'probolinggo':
+            $area = " AND bc.kota_kontak IN ('probolinggo', 'pasuruan', 'batu', 'malang', 'lumajang', 'jember', 'bondowoso', 'situbondo', 'banyuwangi')";
+            break;
+        case 'semarang':
+            $area = " AND bc.kota_kontak IN ('cilacap', 'banyumas', 'brebes', 'tegal', 'purbalingga', 'batang', 'banjarnegara', 'kebumen', 'wonosobo', 'purworejo', 'temanggung', 'magelang', 'kendal', 'yogyakarta', 'ungaran', 'salatiga', 'boyolali', 'klaten', 'surakarta', 'sukorejo', 'karanganyar', 'wonogiri', 'sragen', 'grobongan', 'demak', 'semarang')";
+            break;
+        case 'juwana' or 'juwono':
+            $area = " AND bc.kota_kontak IN ('juwana', 'jepara', 'kudus', 'pati', 'rembang', 'blora')";
+            break;
+        case 'cirebon':
+            $area = " AND bc.kota_kontak IN ('cirebon')";
+            break;
+        default:
+            $area = "";
+            break;
+    }
+
+  $q = mysql_query("select bc.nama_kontak, bc.alamat_kontak, bc.kota_kontak, a.harga_penawaran, a.tempo_penawaran, bc.nama_user, a.status_penawaran , MAX(a.tanggal_penawaran) AS 'tanggal_penawaran' from tb_penawaran a LEFT JOIN (SELECT b.id_kontak, b.nama_kontak, b.alamat_kontak, b.kota_kontak, c.nama_user FROM tb_kontak_all b INNER JOIN tb_user c ON b.id_user = c.id_user) bc ON a.id_kontak = bc.id_kontak " . $area . " GROUP BY bc.id_kontak") or die (mysql_error());
+}
   
-  
+  while ($row = mysql_fetch_array($q)) {;
     ?>
   
      <tr>

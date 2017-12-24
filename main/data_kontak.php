@@ -48,7 +48,7 @@
             $query = "SELECT * FROM tb_kontak_all WHERE kota_kontak IN ('cilacap', 'banyumas', 'brebes', 'tegal', 'purbalingga', 'batang', 'banjarnegara', 'kebumen', 'wonosobo', 'purworejo', 'temanggung', 'magelang', 'kendal', 'yogyakarta', 'ungaran', 'salatiga', 'boyolali', 'klaten', 'surakarta', 'sukorejo', 'karanganyar', 'wonogiri', 'sragen', 'grobongan', 'demak', 'semarang')";
             break;
         case '5':
-            $query = "SELECT * FROM tb_kontak_all WHERE kota_kontak IN ('jepara', 'kudus', 'pati', 'rembang', 'blora')";
+            $query = "SELECT * FROM tb_kontak_all WHERE kota_kontak IN ('juwana', 'jepara', 'kudus', 'pati', 'rembang', 'blora')";
             break;
         case '6':
             $query = "SELECT * FROM tb_kontak_all WHERE kota_kontak IN ('cirebon')";
@@ -93,7 +93,9 @@
     ?>
     </td>
     <td><?php echo $row['report_kontak']; ?></td>  
-        <td><?php echo $row_user['nama_user']; ?></td>
+        <td><?php echo $row_user['nama_user']; ?>
+        <?php echo "<br/><small>(" . $row_user['kota'] . ")</small>";  ?>
+        </td>
     <td>
     <a href="?page=edit_kontak&id_kontak=<?php echo $row['id_kontak']; ?>" class="btn btn-primary btn-sm" >Edit</a>
     </td>		

@@ -13,7 +13,7 @@
 		
 		
 	 if ($num_row_user > 0){
-		$_SESSION['admin']=$row_user['id_admin'];
+		$_SESSION['admin'] = $row_user['id_admin'];
 header("location:main/");
 
 				
