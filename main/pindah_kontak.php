@@ -12,14 +12,17 @@
 		  	</div>
 <div class="content-box-large">
  <?php
- $mkrt = $_POST["id_user"];
-$tanggal_input_awal = $_POST["tanggal_input_awal"];
-$tanggal_input_sampai = $_POST["tanggal_input_sampai"];
+if (isset($_POST)) {
+    $mkrt = $_POST["id_user"];
+    $tanggal_input_awal = $_POST["tanggal_input_awal"];
+    $tanggal_input_sampai = $_POST["tanggal_input_sampai"];
+}
+
     ?>
 <form class="form" action="?page=pindah_kontak" enctype="multipart/form-data" method="post">
 <select name="id_user" required="required" class="select2_single">
 <?php
-$ca_user = mysql_query("select * from tb_user")or die(mysql_error());
+$ca_user = mysql_query("select * from tb_user order by nama_user")or die(mysql_error());
                 while($cari_user = mysql_fetch_array($ca_user)){
 				
 				

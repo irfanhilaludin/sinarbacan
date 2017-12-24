@@ -39,7 +39,7 @@ Sampai:<input id="tanggal_input_sampai" class="date-picker" required="required" 
     <th>Alamat</th>
     <th>Kota</th>
     <th>Tanggal Penawaran</th>
-     <th>Tempo Penawaran</th>
+     <th>Jatuh Tempo Penawaran</th>
     <th>Harga</th>
     <th>Sales</th>
     <th>Status</th>
@@ -52,25 +52,17 @@ Sampai:<input id="tanggal_input_sampai" class="date-picker" required="required" 
 
 	
 	
-    if(($tanggal_input_awal=='') AND ($tanggal_input_sampai=='')){
+    /*if(($tanggal_input_awal=='') WHERE ($tanggal_input_sampai=='')){
 		$penawaran_query = mysql_query("select * from tb_penawaran")or die(mysql_error());
 
 	}else{
-		$penawaran_query = mysql_query("select *  from tb_penawaran where DATE_FORMAT(tempo_penawaran,'%m/%d/%Y') BETWEEN '$tanggal_input_awal' AND '$tanggal_input_sampai'")or die(mysql_error());
-	}
-	
-    /*while($row_pn = mysql_fetch_array($penawaran_query)){
-	
-		$pelanggan_query = mysql_query("select * from tb_kontak_all where id_kontak = '$row_pn[id_kontak]' ")or die(mysql_error());
-        
-		while($row = mysql_fetch_array($pelanggan_query)){*/
-                    
-			// $user_query = mysql_query("select * from tb_user where id_user = '$row_pn[id_user]'")or die(mysql_error());
+		$penawaran_query = mysql_query("select *  from tb_penawaran where DATE_FORMAT(tempo_penawaran,'%m/%d/%Y') BETWEEN '$tanggal_input_awal' WHERE '$tanggal_input_sampai'")or die(mysql_error());
+	}*/
 			
   
     // pilih admin area 
 if ($admin_area == 'all') {
-        $q = mysql_query("select bc.nama_kontak, bc.alamat_kontak, bc.kota_kontak, a.harga_penawaran, a.tempo_penawaran, bc.nama_user, a.status_penawaran , MAX(a.tanggal_penawaran) AS 'tanggal_penawaran' from tb_penawaran a LEFT JOIN (SELECT b.id_kontak, b.nama_kontak, b.alamat_kontak, b.kota_kontak, c.nama_user FROM tb_kontak_all b INNER JOIN tb_user c ON b.id_user = c.id_user) bc ON a.id_kontak = bc.id_kontak GROUP BY bc.id_kontak") or die (mysql_error());
+        $q = mysql_query("select bc.id_kontak, bc.nama_kontak, bc.alamat_kontak, bc.kota_kontak, bc.status_kontak, a.harga_penawaran, a.tempo_penawaran, bc.nama_user, a.status_penawaran , a.tanggal_penawaran from tb_penawaran a LEFT JOIN (SELECT b.id_kontak, b.nama_kontak, b.alamat_kontak, b.kota_kontak, b.status_kontak, c.nama_user FROM tb_kontak_all b INNER JOIN tb_user c ON b.id_user = c.id_user) bc ON a.id_kontak = bc.id_kontak WHERE bc.status_kontak <> 'belum dihubungi' GROUP BY bc.id_kontak") or die (mysql_error());
 } else {
   switch ($admin_area) {
         case 'surabaya':
@@ -93,21 +85,30 @@ if ($admin_area == 'all') {
             break;
     }
 
-  $q = mysql_query("select bc.nama_kontak, bc.alamat_kontak, bc.kota_kontak, a.harga_penawaran, a.tempo_penawaran, bc.nama_user, a.status_penawaran , MAX(a.tanggal_penawaran) AS 'tanggal_penawaran' from tb_penawaran a LEFT JOIN (SELECT b.id_kontak, b.nama_kontak, b.alamat_kontak, b.kota_kontak, c.nama_user FROM tb_kontak_all b INNER JOIN tb_user c ON b.id_user = c.id_user) bc ON a.id_kontak = bc.id_kontak " . $area . " GROUP BY bc.id_kontak") or die (mysql_error());
+  $q = mysql_query("select bc.id_kontak, bc.nama_kontak, bc.alamat_kontak, bc.kota_kontak, bc.status_kontak, a.harga_penawaran, a.tempo_penawaran, bc.nama_user, a.status_penawaran , a.tanggal_penawaran from tb_penawaran a LEFT JOIN (SELECT b.id_kontak, b.nama_kontak, b.alamat_kontak, b.kota_kontak, b.status_kontak, c.nama_user FROM tb_kontak_all b INNER JOIN tb_user c ON b.id_user = c.id_user) bc ON a.id_kontak = bc.id_kontak WHERE bc.status_kontak <> 'belum dihubungi'" . $area . " GROUP BY bc.id_kontak") or die (mysql_error());
 }
   
-  while ($row = mysql_fetch_array($q)) {;
+  while ($row = mysql_fetch_array($q)) {
     ?>
   
      <tr>
-    <td class="a-center ">
-     <input type="checkbox" class="flat" name="id_kon[]" value="<?php echo $row['id_kontak']; ?>">
+    <td class="a-center">
+      <input type="checkbox" class="flat" name="id_kon[]" value="<?php echo $row['id_kontak']; ?>">
     </td>
     <td><?php echo $row['nama_kontak']; ?></td>
     <td><?php echo $row['alamat_kontak']; ?></td>
     <td><?php echo $row['kota_kontak']; ?></td>
-     <td><?php echo $row['tanggal_penawaran']; ?></td>
-     <td><?php echo $row['tempo_penawaran']; ?></td>
+     <td><?php 
+        $dt = new DateTime($row[ 'tanggal_penawaran'], new DateTimeZone('Asia/Jakarta'));
+        echo $dt->format('d M Y');
+        ?></td>
+     <td><?php
+        $date_now = new DateTime();
+        $date2 = new DateTime($row[ 'tempo_penawaran'], new DateTimeZone('Asia/Jakarta'));
+
+        if ($date_now > $date2) echo "<span class='label label-danger'>" . $date2->format('d M Y') . "</span>";
+        else echo "<span class='label label-success'>" . $date2->format('d M Y') . "</span>";
+     ?></td>
     <td><?php echo $row['harga_penawaran']; ?></td>
     <td><?php echo $row['nama_user']; ?></td>
     <td><?php echo $row['status_penawaran']; ?></td>  
@@ -116,19 +117,19 @@ if ($admin_area == 'all') {
        
     <?php 
     }
-	//}
-    //}?>  
+    ?>  
     </tbody>
     </table>
+
     <div class=" col-md-6">Pilih Marketing
   <select name="id_user" class="form-control">   
   <?php  
-  $user_ = mysql_query("select * from tb_user where level_user = 'marketing'")or die(mysql_error());
+  $user_ = mysql_query("select * from tb_user where level_user = 'marketing' order by nama_user")or die(mysql_error());
                     while($row_ = mysql_fetch_array($user_)){
   
   ?>
  
-  <option value="<?php echo $row_['id_user']; ?>"><?php echo $row_['nama_user']; ?></option>
+  <option value="<?php echo $row_['id_user']; ?>"><?php echo $row_['nama_user'] . " [" . $row_['kota'] . "]"; ?></option>
    <?php
   
   }

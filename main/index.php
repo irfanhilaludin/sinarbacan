@@ -2,7 +2,7 @@
 include('dbcon.php');
 dbcon();
 include('session.php');
-// error_reporting(0);
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html>
