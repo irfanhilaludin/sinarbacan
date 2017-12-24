@@ -11,7 +11,7 @@
 <a href="?page=data_penawaran_pending" class="btn btn-success">Pending</a>
 <a href="?page=data_penawaran_kirim" class="btn btn-warning">Terkirim</a>
 <a href="?page=data_penawaran_gagal" class="btn btn-success">Gagal</a>
-<a href="?page=putar_penawaran" class="btn btn-warning">Putar Penawaran</a>
+<a href="?page=putar_penawaran" class="btn btn-success">Putar Penawaran</a>
 <a href="?page=data_penawaran" class="btn btn-success">Semua</a>
 					</div>
 		  		</div>
