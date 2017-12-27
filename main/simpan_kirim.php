@@ -12,10 +12,10 @@ $query=mysql_query("insert into tb_kirim_po (id_po, id_kontak, id_supir, id_kern
 
 if($query) {
 echo"<script>alert('Data Pengiriman Sudah Masuk, Silahkan Cetak')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_pengiriman_belum'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_pengiriman_belum'>";
 
 }else {
 echo"<script>alert('Gagal Menambah Data Pengiriman')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_pengiriman'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_pengiriman'>";
 }
 ?>

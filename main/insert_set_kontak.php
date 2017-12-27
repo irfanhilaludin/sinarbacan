@@ -4,7 +4,7 @@ dbcon();
 $jum = count($_POST["id"]);
 if($jum<1){
 echo"<script>alert('Maaf Pilih Terlebih Dahulu')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=set_user'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=set_user'>";
 
 
 }else{
@@ -20,6 +20,6 @@ $query=mysql_query("update tb_kontak_all set id_user  = '$_POST[id_user]' , tang
 }
 if($query)
 echo"<script>alert('Data Berhasil di set ke Marketing')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=set_user'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=set_user'>";
 }
 ?>

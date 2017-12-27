@@ -6,5 +6,5 @@ $query=mysql_query("update tb_kernet set nama_kernet = '$_POST[nama]' , no_ktp =
 
 if($query)
 echo"<script>alert('Berhasil Mengubah Data Kernet')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_kernet'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_kernet'>";
 ?>

@@ -12,9 +12,9 @@ $query=mysql_query("update tb_po set nama_kontak_po = '$_POST[nama_kontak_po]' ,
 
 if($query) {
 echo"<script>alert('Pemesanan Berhasil disetujui')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_pemesanan_setuju'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_pemesanan_setuju'>";
 	}else{
 	echo"<script>alert('Pemesanan Gagal')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_pemesanan_setuju'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_pemesanan_setuju'>";
 	}
 ?>

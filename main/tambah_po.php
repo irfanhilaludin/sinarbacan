@@ -18,11 +18,11 @@ $query=mysql_query("insert into tb_po (id_kontak, id_user , no_po, nama_kontak_p
 
 if($query) {
 echo"<script>alert('Order Masuk  ')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_pemesanan_pending'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_pemesanan_pending'>";
 
 }else {
 echo"<script>alert('Gagal Order')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_pemesanan_pending'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_pemesanan_pending'>";
 }
 
 ?>

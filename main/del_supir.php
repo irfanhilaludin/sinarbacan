@@ -6,5 +6,5 @@ $query=mysql_query("delete from tb_supir where id_supir='$_GET[id_supir]'") or d
 
 if($query)
 echo"<script>alert('Berhasil Menghapus Supir dan Kernet')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_supir'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_supir'>";
 ?>

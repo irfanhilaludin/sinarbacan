@@ -81,9 +81,8 @@ $pencarian = explode(" ", $cari );
 
 $dobel_query = mysql_query("select * from tb_kontak_all where nama_kontak like '%".$pencarian[0]."%' AND nama_kontak like '%".$pencarian[1]."%' OR nama_kontak like '%".$pencarian[2]."%' OR nama_kontak like '%".$pencarian[3]."%' OR telepon_kontak = '%".$telepon."%' AND kota_kontak like '%".$kota."%' AND email_kontak like '%".$email."%'")or die(mysql_error());
 while($row_dobel = mysql_fetch_array($dobel_query)){
-$banyake =mysql_num_rows($dobel_query);
-
-
+// $banyake =mysql_num_rows($dobel_query);
+//echo json_encode($row_dobel);
 ?>
 <tr class="odd gradeX">
 

@@ -7,7 +7,7 @@ $query1=mysql_query("DELETE FROM tb_po WHERE id_po='$_GET[id_po]'") or die (mysq
 
 if($query)
 echo"<script>alert('Berhasil Menghapus Penawaran')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_pemesanan'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_pemesanan'>";
 	
 ?>
 

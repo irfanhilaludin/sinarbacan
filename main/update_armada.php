@@ -6,5 +6,5 @@ $query=mysql_query("update tb_mobil set nopol = '$_POST[nopol]' , ukuran_mobil =
 
 if($query)
 echo"<script>alert('Berhasil Mengubah Data Armada')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_armada'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_armada'>";
 ?>

@@ -11,5 +11,5 @@ $query=mysql_query("update tb_penawaran set harga_penawaran = '$_POST[harga]' , 
 
 if($query) 
 echo"<script>alert('Penawaran Berhasil di Ubah')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_penawaran'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_penawaran'>";
 ?>

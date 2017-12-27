@@ -8,6 +8,6 @@ $query=mysql_query("update tb_kontak_all set report_kontak = 'PO tidak setuju' w
 
 if($query) 
  echo"<script>alert('PO tidak di setujui')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_pemesanan_pending'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_pemesanan_pending'>";
     
 ?>
