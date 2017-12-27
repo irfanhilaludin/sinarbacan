@@ -56,7 +56,7 @@ if ($admin_area == 'all') {
 } else {
 	switch ($admin_area) {
         case 'surabaya':
-            $area = " AND b.kota_kontak IN ('surabaya', 'sidoarjo', 'gersik', 'lamongan', 'mojokerto', 'jombang', 'nganjuk', 'madiun', 'ngawi', 'ponorogo', 'pacitan', 'trenggalek', 'tulungagung', 'blitar')";
+            $area = " AND b.kota_kontak IN ('surabaya', 'sidoarjo', 'gresik', 'lamongan', 'mojokerto', 'jombang', 'nganjuk', 'madiun', 'ngawi', 'ponorogo', 'pacitan', 'trenggalek', 'tulungagung', 'blitar')";
             break;
         case 'probolinggo':
             $area = " AND b.kota_kontak IN ('probolinggo', 'pasuruan', 'batu', 'malang', 'lumajang', 'jember', 'bondowoso', 'situbondo', 'banyuwangi')";
@@ -174,3 +174,6 @@ $detail_user = mysql_query("select * from tb_user where id_user = '$row_detail[i
 												</table>
 
 	</div>
+
+
+	
