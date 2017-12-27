@@ -10,5 +10,5 @@ $query=mysql_query("update tb_penawaran set status_penawaran  = 'gagal kirim' wh
 
 if($query)
 echo"<script>alert('Penawaran Gagal')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_penawaran_gagal'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_penawaran_gagal'>";
 ?>

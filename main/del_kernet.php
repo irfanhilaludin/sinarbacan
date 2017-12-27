@@ -6,5 +6,5 @@ $query=mysql_query("delete from tb_kernet where id_kernet='$_GET[id_kernet]'") o
 
 if($query)
 echo"<script>alert('Berhasil Menghapus Kernet')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_kernet'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_kernet'>";
 ?>

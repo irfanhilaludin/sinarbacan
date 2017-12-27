@@ -9,7 +9,7 @@ print_r($_POST); return;
 
 if ($jum < 1) {
     echo "<script>alert('Maaf Pilih Terlebih Dahulu')</script>";
-    echo "<meta http-equiv='refresh' content='0;url=./?page=pindah_kontak'>";
+    echo "<meta http-equiv='refresh' content='0;url=./index.php?page=pindah_kontak'>";
 } else {
     for ($x = 0; $x < $jum; $x++) {
         $pel = $_POST["id_kon"][$x];
@@ -18,6 +18,6 @@ if ($jum < 1) {
     }
     if ($query)
         echo "<script>alert('Data Berhasil di pindah')</script>";
-    echo "<meta http-equiv='refresh' content='0;url=./?page=pindah_kontak'>";
+    echo "<meta http-equiv='refresh' content='0;url=./index.php?page=pindah_kontak'>";
 }
 ?>

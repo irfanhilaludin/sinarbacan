@@ -6,5 +6,5 @@ $query=mysql_query("delete from tb_mobil where id_mobil='$_GET[id_mobil]'") or d
 
 if($query)
 echo"<script>alert('Berhasil Menghapus Armada')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_armada'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_armada'>";
 ?>

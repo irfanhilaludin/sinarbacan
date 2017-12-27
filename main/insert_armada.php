@@ -8,7 +8,7 @@ $banyake =mysql_num_rows($device_query);
 if($banyake >0){
 
 echo"<script>alert('Username sudah Ada, gunakan username lain')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_user'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_user'>";
 
 
 }else{}
@@ -20,6 +20,6 @@ $query=mysql_query("insert into tb_mobil (nopol, jenis_mobil, ukuran_mobil) valu
 
 if($query)
 echo"<script>alert('Berhasil Menambah Armada')</script>";
-	echo"<meta http-equiv='refresh' content='0;url=./?page=data_armada'>";
+	echo"<meta http-equiv='refresh' content='0;url=./index.php?page=data_armada'>";
 
 ?>

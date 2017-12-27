@@ -5,7 +5,7 @@ dbcon();
 $jum = count($_POST["id_kon"]);
 if ($jum < 1) {
     echo "<script>alert('Maaf Pilih Terlebih Dahulu')</script>";
-    echo "<meta http-equiv='refresh' content='0;url=./?page=putar_penawaran'>";
+    echo "<meta http-equiv='refresh' content='0;url=./index.php?page=putar_penawaran'>";
 } else {
     for ($x = 0; $x < $jum; $x++) {
         $pel = $_POST["id_kon"][$x];
@@ -16,6 +16,6 @@ if ($jum < 1) {
     }
     if ($query)
         echo "<script>alert('Data Berhasil di putar')</script>";
-    echo "<meta http-equiv='refresh' content='0;url=./?page=putar_penawaran'>";
+    echo "<meta http-equiv='refresh' content='0;url=./index.php?page=putar_penawaran'>";
 }
 ?>
