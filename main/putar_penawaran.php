@@ -65,19 +65,13 @@
 					<tbody>
 					<!-----------------------------------Content------------------------------------>
 					<?php
-					// if(($tanggal_input_awal=='') WHERE ($tanggal_input_sampai=='')){
-					// 	$penawaran_query = mysql_query("select * from tb_penawaran")or die(mysql_error());
-					// }else{
-					// 	$penawaran_query = mysql_query("select *  from tb_penawaran where DATE_FORMAT(tempo_penawaran,'%m/%d/%Y') BETWEEN '$tanggal_input_awal' WHERE '$tanggal_input_sampai'")or die(mysql_error());
-					// }
-					// pilih admin area
 
 						if ($admin_area == 'all') {
 						    $q = mysql_query("select bc.id_kontak, bc.nama_kontak, bc.alamat_kontak, bc.kota_kontak, bc.status_kontak, a.harga_penawaran, a.tempo_penawaran, bc.nama_user, a.status_penawaran , a.tanggal_penawaran from tb_penawaran a LEFT JOIN (SELECT b.id_kontak, b.nama_kontak, b.alamat_kontak, b.kota_kontak, b.status_kontak, c.nama_user FROM tb_kontak_all b INNER JOIN tb_user c ON b.id_user = c.id_user) bc ON a.id_kontak = bc.id_kontak WHERE bc.status_kontak <> 'belum dihubungi' GROUP BY bc.id_kontak") or die(mysql_error());
 						} else {
 						    switch ($admin_area) {
 						        case 'surabaya':
-						            $area = " AND bc.kota_kontak IN ('surabaya', 'sidoarjo', 'gersik', 'lamongan', 'mojokerto', 'jombang', 'nganjuk', 'madiun', 'ngawi', 'ponorogo', 'pacitan', 'trenggalek', 'tulungagung', 'blitar')";
+						            $area = " AND bc.kota_kontak IN ('surabaya', 'sidoarjo', 'gersik', 'lamongan', 'mojokerto', 'jombang', 'nganjuk', 'madiun', 'ngawi', 'ponorogo', 'pacitan', 'trenggalek', 'tulungagung', 'blitar', 'tuban')";
 						        break;
 						        case 'probolinggo':
 						            $area = " AND bc.kota_kontak IN ('probolinggo', 'pasuruan', 'batu', 'malang', 'lumajang', 'jember', 'bondowoso', 'situbondo', 'banyuwangi')";
@@ -137,7 +131,7 @@
 				$user_ = mysql_query("select * from tb_user where level_user = 'marketing' order by nama_user") or die(mysql_error());
 				while ($row_ = mysql_fetch_array($user_)) {
 				?>
-	 		<option value="<?php echo $row_['id_user']; ?>"><?php echo $row_['nama_user'] . " [" . $row_['kota'] . "]"; ?></option>
+	 		<option value="<?php echo $row_['id_user']; ?>"><?php echo "[" . $row_['id_user'] . "]" . $row_['nama_user']; ?></option>
 				<?php
 					}
 				?>
