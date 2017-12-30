@@ -560,9 +560,37 @@ $bln2 = $array_bln2[date('n')];
 			
 	$user_query = mysql_query("select * from tb_user where id_user = $row_pn[id_user] ")or die(mysql_error());
 		$row_user = mysql_fetch_array($user_query);
+		
+$area = $row_user['kota'];
+
+if($area == 'surabaya')
+{
+	$areax='SBY';
+}
+elseif($area == 'probolinggo')
+{
+	$areax='PRB'; 
+}
+elseif($area == 'semarang')
+{
+	$areax='SMG'; 
+}
+elseif($area == 'juwana')
+{
+	$areax='JWN'; 
+}
+elseif($area == 'cirebon')
+{
+	$areax='CRB'; 
+}
+elseif($area == 'all')
+{
+	$areax='SBY'; 
+}
 	
-$query1=mysql_query("update tb_penawaran set no_penawaran = '0$row_pn[id_penawaran]/SBK-HSD-SBY/$bln/$thn' where id_penawaran = '$_GET[id_penawaran]'") or die (mysql_error());
-	
+$query1=mysql_query("update tb_penawaran set no_penawaran = '0$row_pn[id_penawaran]/SBK-HSD-$areax/$bln/$thn' where id_penawaran = '$_GET[id_penawaran]'") or die (mysql_error());
+
+
 		?>
 <table border=0 cellpadding=0 cellspacing=0 width=667 class=xl6430583
  style='border-collapse:collapse;table-layout:fixed;width:503pt'>
@@ -2607,7 +2635,7 @@ AAAAAAAAAACwBgAAZHJzL21lZGlhL2ltYWdlMS5wbmdQSwUGAAAAAAYABgCEAQAA/qYBAAAA
   <td height=17 class=xl6530583 valign=top style='height:12.75pt'><font
   face="Arial">Nomor</font></td>
   <td class=xl6630583 align=center><font face="Arial">:</font></td>
-  <td colspan=7 class=xl6730583 valign=top><font face="Arial">0<?php echo $row_pn['id_penawaran'] ; ?>/SBK-HSD-SBY/<?php echo $bln?>/<?php echo $thn?></font></td>
+  <td colspan=7 class=xl6730583 valign=top><font face="Arial">0<?php echo $row_pn['id_penawaran'] ; ?>/SBK-HSD-<?php echo $areax ?>/<?php echo $bln?>/<?php echo $thn?></font></td>
   <td class=xl6830583 align=right><font face="Arial">Surabaya,<span
   style='mso-spacerun:yes'> </span></font></td>
   <td class=xl6930583><font face="Arial" color="#000000"><?php echo $tgl ?> <?php echo $bln2 ?> <?php echo $thn ?></font></td>
@@ -5657,9 +5685,41 @@ YWdlMS5wbmdQSwUGAAAAAAYABgCEAQAAqtkBAAAA
     <x:CF>Bitmap</x:CF>
     <x:AutoPict/>
    </x:ClientData>
-  </v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout; position:absolute; z-index:2; margin-left:0px; margin-top:4px; width:103px; height:96px'><img width=99 height=96
-  src="penawaran_files/penawaran_30583_image003.png" alt=TTD.png v:shapes="Picture_x0020_4 Picture_x0020_5"></span><![endif]><span
+  </v:shape><![endif]-->
+  <?php
+$area = $row_user['kota'];
+
+  if($area == 'surabaya')
+{
+	$imagest = glob("penawaran_files/ttd_sby.png");
+}
+elseif($area == 'probolinggo')
+{
+	$imagest = glob("penawaran_files/ttd_prb.png"); 
+}
+elseif($area == 'semarang')
+{
+	$imagest = glob("penawaran_files/ttd_smg.png"); 
+}
+elseif($area == 'juwana')
+{
+	$imagest = glob("penawaran_files/ttd_jwn.png"); 
+}
+elseif($area == 'cirebon')
+{
+	$imagest = glob("penawaran_files/ttd_crb.png"); 
+}
+   
+   for ($i=0; $i<count($imagest); $i++) 
+   { 
+   $single_imaget = $imagest[$i];
+?>
+  <![if !vml]><span style='mso-ignore:vglayout; position:absolute; z-index:2; margin-left:0px; margin-top:4px; width:103px; height:96px'><img width=99 height=96
+  src="<?php echo $single_imaget; ?>" alt=TTD.png v:shapes="Picture_x0020_4 Picture_x0020_5"></span><![endif]><span
   style='mso-ignore:vglayout2'>
+  <?php
+   }
+  ?>
   <table cellpadding=0 cellspacing=0>
    <tr>
     <td height=17 class=xl6430583 width=65 style='height:12.75pt;width:49pt'></td>
@@ -5675,7 +5735,7 @@ YWdlMS5wbmdQSwUGAAAAAAYABgCEAQAAqtkBAAAA
   <td class=xl6430583></td>
   <td class=xl6430583></td>
   <td class=xl7330583></td>
-  <td class=xl6430583><font face="Arial">Head Office Surabaya :</font></td>
+  <td class=xl6430583>&nbsp;</td>
  </tr>
  <tr height=17 valign=bottom style='height:12.75pt'>
   <td height=17 class=xl6430583 style='height:12.75pt'></td>
@@ -5688,7 +5748,7 @@ YWdlMS5wbmdQSwUGAAAAAAYABgCEAQAAqtkBAAAA
   <td class=xl6430583></td>
   <td class=xl6430583></td>
   <td class=xl7330583></td>
-  <td class=xl6430583><font face="Arial">Jl. Embong Malang 75 G</font></td>
+  <td class=xl6430583>&nbsp;</td>
  </tr>
  <tr height=17 valign=bottom style='height:12.75pt'>
   <td height=17 class=xl6430583 style='height:12.75pt'></td>
@@ -5701,8 +5761,7 @@ YWdlMS5wbmdQSwUGAAAAAAYABgCEAQAAqtkBAAAA
   <td class=xl6430583></td>
   <td class=xl6430583></td>
   <td class=xl7330583></td>
-  <td class=xl6430583><font face="Arial">Telp<span style='mso-spacerun:yes'> 
-  </span>: 031-5313541</font></td>
+  <td class=xl6430583>&nbsp;</td>
  </tr>
  <tr height=17 valign=bottom style='height:12.75pt'>
   <td height=17 class=xl6430583 style='height:12.75pt'></td>
@@ -5715,8 +5774,7 @@ YWdlMS5wbmdQSwUGAAAAAAYABgCEAQAAqtkBAAAA
   <td class=xl6430583></td>
   <td class=xl6430583></td>
   <td class=xl7330583></td>
-  <td class=xl6430583><font face="Arial">Fax<span style='mso-spacerun:yes'>  
-  </span>: 031-5314335</font></td>
+  <td class=xl6430583>&nbsp;</td>
  </tr>
  <tr height=17 valign=bottom style='height:12.75pt'>
   <td height=17 class=xl6430583 style='height:12.75pt'></td>
@@ -5729,7 +5787,7 @@ YWdlMS5wbmdQSwUGAAAAAAYABgCEAQAAqtkBAAAA
   <td class=xl6430583></td>
   <td class=xl6430583></td>
   <td class=xl7330583></td>
-  <td class=xl6430583><font face="Arial">Email : jawatimur@sbk-hsd.com</font></td>
+  <td class=xl6430583>&nbsp;</td>
  </tr>
  <tr height=17 style='height:12.75pt'>
   <td height=17 class=xl6430583 style='height:12.75pt'></td>
@@ -6124,8 +6182,35 @@ cGVnUEsFBgAAAAAGAAYAhQEAAMJNAAAAAA==
   <td class=xl7330583></td>
  </tr>
  <tr height=17 valign=bottom style='height:12.75pt'>
-  <td height=17 class=xl7030583 colspan=4 style='height:12.75pt'><font
-  face="Arial"><b><u>MOCH. ERWAN</u></b></font></td>
+  <td height=17 class=xl7030583 colspan=4 style='height:12.75pt'>
+  <?php
+$area = $row_user['kota'];
+
+  if($area == 'surabaya')
+{
+	$name = 'MOCH. ERWAN';
+}
+elseif($area == 'probolinggo')
+{
+	$name = 'MOCH. ERWAN'; 
+}
+elseif($area == 'semarang')
+{
+	$name = 'ABDULLAH XQ'; 
+}
+elseif($area == 'juwana')
+{
+	$name = 'ABDULLAH XQ'; 
+}
+elseif($area == 'cirebon')
+{
+	$name = 'DWI SETIAWAN'; 
+}
+   
+  
+?>
+  <font
+  face="Arial"><b><u><?php echo $name; ?></u></b></font></td>
   <td class=xl6430583></td>
   <td class=xl6430583></td>
   <td class=xl6430583></td>
@@ -11411,10 +11496,45 @@ AAAGAAYAhAEAAGiPBAAAAA==
    </x:ClientData>
   </v:shape><![endif]--><![if !vml]><span style='mso-ignore:vglayout;
   position:absolute;z-index:5;margin-left:0px;margin-top:6px;width:666px;
-  height:79px'><img width=666 height=79
-  src="penawaran_files/penawaran_30583_image008.png"
-  alt="invoice_16542_image003.png" v:shapes="Picture_x0020_9"></span><![endif]><span
+  height:79px'>
+    
+<?php
+$area = $row_user['kota'];
+
+  if($area == 'surabaya')
+{
+	$images = glob("penawaran_files/surabaya.png");
+}
+elseif($area == 'probolinggo')
+{
+	$images = glob("penawaran_files/probolinggo.png"); 
+}
+elseif($area == 'semarang')
+{
+	$images = glob("penawaran_files/semarang.png"); 
+}
+elseif($area == 'juwana')
+{
+	$images = glob("penawaran_files/juwana.png"); 
+}
+elseif($area == 'cirebon')
+{
+	$images = glob("penawaran_files/cirebon.png"); 
+}
+   
+   for ($i=0; $i<count($images); $i++) 
+   { 
+   $single_image = $images[$i];
+?>
+       
+
+  <img width=666 height=79
+  src="<?php echo $single_image; ?>"
+  alt="<?php echo $single_image; ?>" v:shapes="Picture_x0020_9"></span><![endif]><span
   style='mso-ignore:vglayout2'>
+  <?php
+ }
+?>
   <table cellpadding=0 cellspacing=0>
    <tr>
     <td height=17 class=xl7030583 width=65 style='height:12.75pt;width:49pt'></td>

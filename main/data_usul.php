@@ -41,8 +41,8 @@ if ($admin_area == 'all') {
         case 'semarang':
             $area = " AND a.kota_kontak IN ('cilacap', 'banyumas', 'brebes', 'tegal', 'purbalingga', 'batang', 'banjarnegara', 'kebumen', 'wonosobo', 'purworejo', 'temanggung', 'magelang', 'kendal', 'yogyakarta', 'ungaran', 'salatiga', 'boyolali', 'klaten', 'surakarta', 'sukorejo', 'karanganyar', 'wonogiri', 'sragen', 'grobongan', 'demak', 'semarang')";
             break;
-        case 'juwana' or 'juwono':
-            $area = " AND a.kota_kontak IN ('juwano', 'jepara', 'kudus', 'pati', 'rembang', 'blora')";
+        case 'juwono':
+            $area = " AND a.kota_kontak IN ('juwono', 'jepara', 'kudus', 'pati', 'rembang', 'blora')";
             break;
         case 'cirebon':
             $area = " AND a.kota_kontak IN ('cirebon')";

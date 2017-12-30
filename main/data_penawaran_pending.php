@@ -50,10 +50,6 @@ $newdate2 = strtotime ( 'next month' , $ora  ) ;
 $newdate = date("Y/m/d",$newdate2);	
 
 // pilih admin area 
-if ($admin_area == 'all') {
-	$q = mysql_query("select * from tb_penawaran a LEFT JOIN tb_kontak_all b ON b.id_kontak = a.id_kontak LEFT JOIN (SELECT id_user, nama_user, kota from tb_user) c on c.id_user = a.id_user where a.status_penawaran = 'pending'") or die (mysql_error());
-
-} else {
 	switch ($admin_area) {
         case 'surabaya':
             $area = " AND b.kota_kontak IN ('surabaya', 'sidoarjo', 'gersik', 'lamongan', 'mojokerto', 'jombang', 'nganjuk', 'madiun', 'ngawi', 'ponorogo', 'pacitan', 'trenggalek', 'tulungagung', 'blitar', 'tuban')";
@@ -65,7 +61,7 @@ if ($admin_area == 'all') {
             $area = " AND b.kota_kontak IN ('cilacap', 'banyumas', 'brebes', 'tegal', 'purbalingga', 'batang', 'banjarnegara', 'kebumen', 'wonosobo', 'purworejo', 'temanggung', 'magelang', 'kendal', 'yogyakarta', 'ungaran', 'salatiga', 'boyolali', 'klaten', 'surakarta', 'sukorejo', 'karanganyar', 'wonogiri', 'sragen', 'grobongan', 'demak', 'semarang')";
             break;
         case 'juwana' or 'juwono':
-            $area = " AND b.kota_kontak IN ('juwana', 'jepara', 'kudus', 'pati', 'rembang', 'blora')";
+            $area = " AND b.kota_kontak IN ('juwana', 'juwono', 'jepara', 'kudus', 'pati', 'rembang', 'blora')";
             break;
         case 'cirebon':
             $area = " AND b.kota_kontak IN ('cirebon')";
@@ -76,14 +72,9 @@ if ($admin_area == 'all') {
     }
 
 	$q = mysql_query("select * from tb_penawaran a LEFT JOIN tb_kontak_all b ON b.id_kontak = a.id_kontak LEFT JOIN (SELECT id_user, nama_user, kota from tb_user) c on c.id_user = a.id_user where a.status_penawaran = 'pending'" . $area) or die (mysql_error());
-}
 
     
 while ($row = mysql_fetch_array($q)) {;
-
-
-
-
 
 ?>
 									
@@ -174,3 +165,6 @@ $detail_user = mysql_query("select * from tb_user where id_user = '$row_detail[i
 												</table>
 
 	</div>
+
+
+	
